@@ -649,6 +649,20 @@ chatbotClose?.addEventListener("click", (event) => {
     closeChatbot();
 });
 
+document.addEventListener("click", event => {
+    const target = event.target;
+    if (!(target instanceof Element)) {
+        return;
+    }
+
+    const closeBtn = target.closest("#chatbotClose");
+    if (closeBtn) {
+        event.preventDefault();
+        event.stopPropagation();
+        closeChatbot();
+    }
+});
+
 chatbotChips.forEach(chip => {
     chip.addEventListener("click", () => {
         const text = chip.textContent || "";
@@ -786,6 +800,46 @@ certificationsModal?.addEventListener("click", (e) => {
 function loadCertificationsFromAdmin() {
     const certs = JSON.parse(localStorage.getItem("admin_certifications") || "[]");
     const grid = document.getElementById("certsGrid");
+    const showcaseGrid = document.getElementById("certShowcaseGrid");
+
+    if (showcaseGrid) {
+        if (!certs.length) {
+            showcaseGrid.innerHTML = `
+                <article class="cert-showcase-card">
+                    <span class="cert-pill">Featured</span>
+                    <h3>Professional Certification</h3>
+                    <p>Validated learning path with practical implementation outcomes.</p>
+                    <div class="cert-chip-row"><span>Verified</span><span>Hands-on</span><span>Current</span></div>
+                </article>
+                <article class="cert-showcase-card">
+                    <span class="cert-pill">Specialization</span>
+                    <h3>Applied AI / Full Stack</h3>
+                    <p>Coursework and project-backed expertise in deployment-ready systems.</p>
+                    <div class="cert-chip-row"><span>AI</span><span>Backend</span><span>Automation</span></div>
+                </article>
+                <article class="cert-showcase-card">
+                    <span class="cert-pill">Growth</span>
+                    <h3>Continuous Upskilling</h3>
+                    <p>Learning-focused certifications aligned with client delivery standards.</p>
+                    <div class="cert-chip-row"><span>Updated</span><span>Practical</span><span>Reliable</span></div>
+                </article>
+            `;
+        } else {
+            showcaseGrid.innerHTML = certs.slice(0, 3).map(cert => `
+                <article class="cert-showcase-card">
+                    <span class="cert-pill">${new Date(cert.date).getFullYear()}</span>
+                    <h3>${cert.title}</h3>
+                    <p>${cert.description || cert.issuer}</p>
+                    <div class="cert-chip-row">
+                        <span>${cert.issuer}</span>
+                        <span>Verified</span>
+                        <span>Certified</span>
+                    </div>
+                </article>
+            `).join("");
+        }
+    }
+
     if (grid) {
         if (!certs.length) {
             grid.innerHTML = "<p style='color: var(--muted); text-align: center;'>No certifications added yet.</p>";
@@ -829,8 +883,8 @@ function openBookingModal(type) {
         addBookingChatMessage("bot", "Welcome! Let's discuss your project requirements. What type of solution do you need?");
     } else if (type.startsWith("session")) {
         const sessionMap = {
-            "session-30": "Free 30-Min Consultation",
-            "session-60": "60-Minute Deep Dive",
+            "session-30": "30-Min Quick Consultation",
+            "session-60": "1-Hour Deep Dive",
             "session-team": "Team Workshop"
         };
         bookingTitle.textContent = `Book: ${sessionMap[type]}`;

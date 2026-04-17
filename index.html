@@ -321,10 +321,42 @@
             <div class="container">
                 <div class="cert-header">
                     <h2 class="section-title">Certifications & Credentials</h2>
-                    <p class="section-subtitle">Industry-recognized certifications and achievements.</p>
+                    <p class="section-subtitle">A curated showcase of verified skills, certifications, and professional milestones.</p>
                     <button id="certViewBtn" class="btn btn-primary" type="button">
                         <i class="fa-solid fa-certificate"></i> View All Certifications
                     </button>
+                </div>
+                <div id="certShowcaseGrid" class="cert-showcase-grid">
+                    <article class="cert-showcase-card">
+                        <span class="cert-pill">Featured</span>
+                        <h3>Professional Certification</h3>
+                        <p>Validated learning path with practical implementation outcomes.</p>
+                        <div class="cert-chip-row">
+                            <span>Verified</span>
+                            <span>Hands-on</span>
+                            <span>Current</span>
+                        </div>
+                    </article>
+                    <article class="cert-showcase-card">
+                        <span class="cert-pill">Specialization</span>
+                        <h3>Applied AI / Full Stack</h3>
+                        <p>Coursework and project-backed expertise in deployment-ready systems.</p>
+                        <div class="cert-chip-row">
+                            <span>AI</span>
+                            <span>Backend</span>
+                            <span>Automation</span>
+                        </div>
+                    </article>
+                    <article class="cert-showcase-card">
+                        <span class="cert-pill">Growth</span>
+                        <h3>Continuous Upskilling</h3>
+                        <p>Learning-focused certifications aligned with client delivery standards.</p>
+                        <div class="cert-chip-row">
+                            <span>Updated</span>
+                            <span>Practical</span>
+                            <span>Reliable</span>
+                        </div>
+                    </article>
                 </div>
                 <div id="certificationsModal" class="cert-modal" hidden>
                     <div class="cert-modal-content">
@@ -343,23 +375,23 @@
         <section id="book-session" class="section reveal">
             <div class="container">
                 <h2 class="section-title">Book a Consultation Session</h2>
-                <p class="section-subtitle">Book a free 30-minute consultation or choose a longer deep-dive session with AI-powered scheduling.</p>
+                <p class="section-subtitle">Choose your preferred consultation slot with transparent pricing and AI-assisted scheduling.</p>
                 <div class="book-grid">
                     <div class="book-card">
-                        <h3><i class="fa-solid fa-video"></i> Free 30-Min Consultation</h3>
-                        <p class="price">Free</p>
+                        <h3><i class="fa-solid fa-video"></i> 30-Min Quick Consultation</h3>
+                        <p class="price">$30</p>
                         <p>Quick meeting to align on scope, direction, and next steps.</p>
-                        <button class="btn btn-primary" type="button" onclick="openBookingModal('session-30')">Book Free Consultation</button>
+                        <button class="btn btn-primary" type="button" onclick="openBookingModal('session-30')">Book Now</button>
                     </div>
                     <div class="book-card">
-                        <h3><i class="fa-solid fa-video"></i> 60-Min Deep Dive</h3>
-                        <p class="price">$100</p>
+                        <h3><i class="fa-solid fa-video"></i> 1-Hour Deep Dive</h3>
+                        <p class="price">$50</p>
                         <p>Detailed technical discussion and solution planning.</p>
                         <button class="btn btn-primary" type="button" onclick="openBookingModal('session-60')">Book Now</button>
                     </div>
                     <div class="book-card">
                         <h3><i class="fa-solid fa-users"></i> Team Workshop</h3>
-                        <p class="price">$300</p>
+                        <p class="price">$100</p>
                         <p>Training and implementation guidance for your team.</p>
                         <button class="btn btn-primary" type="button" onclick="openBookingModal('session-team')">Book Now</button>
                     </div>
@@ -557,7 +589,7 @@
                 <h3>Client Assistant</h3>
                 <p>Trained for your services</p>
             </div>
-            <button id="chatbotClose" type="button" aria-label="Close chatbot"><i class="fa-solid fa-xmark"></i></button>
+            <button id="chatbotClose" type="button" aria-label="Close chatbot" onclick="this.closest('#chatbotWidget').hidden=true;"><i class="fa-solid fa-xmark"></i></button>
         </header>
         <div id="chatbotMessages" class="chatbot-messages"></div>
         <div class="chatbot-quick-actions">
