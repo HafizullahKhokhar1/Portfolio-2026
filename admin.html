@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Hafizullah Khokhar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        .admin-container {
+            min-height: 100vh;
+            display: flex;
+            background: var(--bg);
+        }
+
+        .admin-sidebar {
+            width: 260px;
+            background: var(--surface);
+            border-right: 1px solid var(--line);
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .admin-sidebar h2 {
+            margin: 0 0 24px;
+            color: var(--brand);
+            font-size: 1.1rem;
+        }
+
+        .admin-nav {
+            list-style: none;
+        }
+
+        .admin-nav li {
+            margin-bottom: 8px;
+        }
+
+        .admin-nav button {
+            width: 100%;
+            text-align: left;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            cursor: pointer;
+            color: var(--muted);
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .admin-nav button:hover,
+        .admin-nav button.active {
+            background: color-mix(in srgb, var(--brand) 14%, transparent);
+            color: var(--brand);
+        }
+
+        .admin-main {
+            margin-left: 260px;
+            flex: 1;
+            padding: 40px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .admin-header h1 {
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .admin-content {
+            display: none;
+        }
+
+        .admin-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .certs-form-grid {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .certs-form-grid label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--ink);
+        }
+
+        .certs-form-grid input,
+        .certs-form-grid textarea {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 10px 12px;
+            font: inherit;
+            color: var(--ink);
+            background: var(--surface-alt);
+        }
+
+        .certs-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .cert-item {
+            border: 1px solid var(--line);
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cert-item-info h4 {
+            margin: 0 0 4px;
+            color: var(--ink);
+        }
+
+        .cert-item-info p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .cert-item-actions button {
+            margin-left: 8px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .btn-edit {
+            background: color-mix(in srgb, var(--brand) 20%, transparent);
+            color: var(--brand);
+        }
+
+        .btn-delete {
+            background: color-mix(in srgb, var(--bad) 20%, transparent);
+            color: var(--bad);
+        }
+
+        .bookings-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .booking-item {
+            border: 1px solid var(--line);
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .booking-item h4 {
+            margin: 0 0 8px;
+            color: var(--ink);
+        }
+
+        .booking-item-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 12px 0;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .booking-item-details strong {
+            color: var(--ink);
+        }
+
+        .admin-btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .admin-btn-group button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+            color: #fff;
+        }
+
+        .btn-cancel {
+            background: var(--surface-alt);
+            color: var(--ink);
+            border: 1px solid var(--line);
+        }
+
+        @media (max-width: 860px) {
+            .admin-sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                border-bottom: 1px solid var(--line);
+                border-right: none;
+            }
+
+            .admin-main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .admin-nav {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .admin-nav li {
+                margin: 0;
+            }
+
+            .booking-item-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <h2><i class="fa-solid fa-shield"></i> Admin Panel</h2>
+            <ul class="admin-nav">
+                <li><button type="button" class="admin-nav-btn active" data-section="certs"><i class="fa-solid fa-certificate"></i> Certifications</button></li>
+                <li><button type="button" class="admin-nav-btn" data-section="bookings"><i class="fa-solid fa-calendar"></i> Bookings</button></li>
+                <li><button type="button" class="admin-nav-btn" data-section="settings"><i class="fa-solid fa-gear"></i> Settings</button></li>
+                <li><button type="button" id="adminLogout" style="color: var(--bad);"><i class="fa-solid fa-sign-out-alt"></i> Logout</button></li>
+            </ul>
+        </aside>
+
+        <main class="admin-main">
+            <div class="admin-header">
+                <h1>Admin Dashboard</h1>
+                <button id="themeToggleAdmin" class="icon-btn" type="button" aria-label="Toggle theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+
+            <!-- Certifications Section -->
+            <section id="certsContent" class="admin-content active">
+                <h2>Manage Certifications</h2>
+                <div class="certs-form-grid">
+                    <div>
+                        <label for="certTitle">Certificate Title</label>
+                        <input id="certTitle" type="text" placeholder="e.g., AWS Solutions Architect">
+                    </div>
+                    <div>
+                        <label for="certIssuer">Issuing Organization</label>
+                        <input id="certIssuer" type="text" placeholder="e.g., Amazon Web Services">
+                    </div>
+                    <div>
+                        <label for="certDate">Date Issued</label>
+                        <input id="certDate" type="date">
+                    </div>
+                    <div>
+                        <label for="certLink">Certificate Link (Optional)</label>
+                        <input id="certLink" type="url" placeholder="https://...">
+                    </div>
+                    <div>
+                        <label for="certDescription">Description</label>
+                        <textarea id="certDescription" rows="2" placeholder="Brief description of the certification"></textarea>
+                    </div>
+                    <div class="admin-btn-group">
+                        <button type="button" class="btn-submit" onclick="addCertificate()"><i class="fa-solid fa-plus"></i> Add Certificate</button>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px;">Current Certificates</h3>
+                <div id="certsList" class="certs-list">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- Bookings Section -->
+            <section id="bookingsContent" class="admin-content">
+                <h2>Manage Bookings</h2>
+                <div id="bookingsList" class="bookings-list">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settingsContent" class="admin-content">
+                <h2>Settings</h2>
+                <div style="border: 1px solid var(--line); border-radius: 12px; padding: 20px; background: var(--surface);">
+                    <h3 style="margin-top: 0;">Admin Panel Settings</h3>
+                    <p style="color: var(--muted);">
+                        <strong>Password:</strong> Currently not set. Set a password to secure your admin panel.
+                    </p>
+                    <div style="margin-top: 16px;">
+                        <label for="adminPassword">Set Admin Password</label>
+                        <input id="adminPassword" type="password" placeholder="Enter password" style="width: 100%; margin-top: 8px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-alt);">
+                    </div>
+                    <button type="button" onclick="saveAdminPassword()" class="btn btn-primary" style="margin-top: 16px;">Save Password</button>
+                    <p id="settingsStatus" style="margin-top: 8px; color: var(--good);"></p>
+                    <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--line);">
+                    <h3>Data Export</h3>
+                    <p style="color: var(--muted); margin: 0 0 16px;">Export all data as JSON for backup or migration.</p>
+                    <button type="button" onclick="exportAdminData()" class="btn btn-primary">
+                        <i class="fa-solid fa-download"></i> Export Data
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="assets/js/admin.js" defer></script>
+</body>
+</html>
