@@ -42,6 +42,8 @@ let typingDeleting = false;
 let projectCache = [];
 let activeFilter = "all";
 let chatbotMode = "local";
+let chatbotCloseTimerId = null;
+const CHATBOT_CLOSE_ANIMATION_MS = 360;
 const chatState = {
     collectingLead: false,
     leadStep: 0,
@@ -395,7 +397,13 @@ function openChatbot() {
         return;
     }
 
+    if (chatbotCloseTimerId) {
+        clearTimeout(chatbotCloseTimerId);
+        chatbotCloseTimerId = null;
+    }
+
     chatbotWidget.hidden = false;
+    chatbotWidget.classList.remove("is-closing");
     chatbotWidget.classList.add("ai-border-active");
     chatbotInput?.focus();
 
@@ -408,10 +416,21 @@ function openChatbot() {
 }
 
 function closeChatbot() {
-    if (chatbotWidget) {
-        chatbotWidget.hidden = true;
-        chatbotWidget.classList.remove("ai-border-active");
+    if (!chatbotWidget || chatbotWidget.hidden || chatbotWidget.classList.contains("is-closing")) {
+        return;
     }
+
+    chatbotWidget.classList.add("is-closing");
+
+    if (chatbotCloseTimerId) {
+        clearTimeout(chatbotCloseTimerId);
+    }
+
+    chatbotCloseTimerId = setTimeout(() => {
+        chatbotWidget.hidden = true;
+        chatbotWidget.classList.remove("is-closing", "ai-border-active");
+        chatbotCloseTimerId = null;
+    }, CHATBOT_CLOSE_ANIMATION_MS);
 }
 
 function canUseRemoteChat() {
