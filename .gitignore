@@ -1,7 +1,5 @@
 ﻿.DS_Store
 Thumbs.db
-.vscode/
-.claude/
 .vscode/settings.local.json
 node_modules/
 dist/

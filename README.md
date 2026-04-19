@@ -1,10 +1,10 @@
-﻿# Fullstack Portfolio 2026
+# Fullstack Portfolio 2026
 
 Premium GitHub-ready portfolio for Hafizullah Khokhar with booking flows, AI chat, certification management, and a polished repository structure.
 
 ## Overview
 
-A beautiful Creative portfolio using modern tech stacks. This project is designed as a static fullstack-style portfolio experience for clients, recruiters, and GitHub visitors. It combines a conversion-focused landing page with an admin dashboard for managing certifications and bookings.
+This project is designed as a static fullstack-style portfolio experience for clients, recruiters, and GitHub visitors. It combines a conversion-focused landing page with an admin dashboard for managing certifications and bookings.
 
 ## Professional Experience
 
